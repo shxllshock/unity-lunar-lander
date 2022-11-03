@@ -9,7 +9,7 @@ public class PerlinNoise : MonoBehaviour {
         
         for (int y = 0; y < mapHeight; y++) {
             for (int x = 0; x < mapWidth; x++) {
-                float sampleX = (x / scale) + seed;
+                float sampleX = (x / scale);
                 float sampleY = (y / scale) + seed;
 
                 float perlinValue = Mathf.PerlinNoise(sampleX, sampleY);

@@ -12,11 +12,10 @@ public class MapGenerator : MonoBehaviour {
     [Header("Perlin Noise Options")]
     public int mapScale;
     public float noiseScale;
-    public float random;
+    //public float random;
     public float seed;
 
-    [Header("Map Options")] 
-    public float pointGap;
+    [Header("Map Options")]
     public float pointHeight;
     public float heightExaggeration;
     public float minHeight;
@@ -27,24 +26,38 @@ public class MapGenerator : MonoBehaviour {
     public bool autoUpdate;
     
     
+    private float startingSeed = 0;
+    private float lastCameraPositionX = 0;
+    public void Update() {
+        // Infinite generation for when the camera is scrolled on the X axis.
+        float cameraPositionX = Camera.main.transform.position.x;
+        float diff = cameraPositionX - lastCameraPositionX;
+        if (diff > 0.05f || diff < -0.05f) {
+            lastCameraPositionX = cameraPositionX;
+            seed = startingSeed + (cameraPositionX / (float) Math.PI);
+            GenerateMap();
+        }
+    }
+
     public void GenerateMap() {
-        float[,] noiseMap = PerlinNoise.GenerateNoiseMap(mapScale, mapScale, noiseScale, seed);
-        
+        float[,] noiseMap = PerlinNoise.GenerateNoiseMap(mapScale, mapScale, noiseScale, seed); // The main noise map
+
         MapDisplay display = GetComponent<MapDisplay>();
         display.DrawNoiseMap(noiseMap);
         
         // Generating points of the line renderer
         
         // These variables are to compensate and make sure that the points are inside the cameras view.
-        Vector2 cameraMin = Camera.main.ScreenToWorldPoint(new Vector3(0, 0));
-        Vector2 cameraMax = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
+        float cameraMinX = Camera.main.ScreenToWorldPoint(new Vector3(0, 0)).x;
+        float cameraMaxX = Camera.main.ScreenToWorldPoint(new Vector3(Camera.main.pixelWidth, 0)).x + 0.3f;
+        float pointGap = (cameraMaxX - cameraMinX) / mapScale;
 
         Vector3[] points = new Vector3[mapScale];
         float gap = 0; // This variable is to keep track of the gap in between the points
         for (int i = 0; i < mapScale; i++) { 
             // Generating the X and Y values for the point from the noise map generated
-            float pointX = (gap + cameraMin.x) + Random.Range(-random, random);
-            float pointY = ((noiseMap[noiseY, i] * heightExaggeration) - pointHeight) + Random.Range(-random, random);
+            float pointX = (gap + cameraMinX);
+            float pointY = ((noiseMap[noiseY, i] * heightExaggeration) - pointHeight);
             
             pointY = Mathf.Clamp(pointY, -minHeight, maxHeight); // Clamping the height.
             
@@ -80,6 +93,7 @@ public class MapGenerator : MonoBehaviour {
     }
 
     private void Start() {
+        startingSeed = seed;
         GenerateMap();
     }
 }
