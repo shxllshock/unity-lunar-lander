@@ -43,13 +43,13 @@ public class MapGenerator : MonoBehaviour {
         float gap = 0; // This variable is to keep track of the gap in between the points
         for (int i = 0; i < mapScale; i++) { 
             // Generating the X and Y values for the point from the noise map generated
-            float lineX = (gap + cameraMin.x) + Random.Range(-random, random);
-            float lineY = ((noiseMap[noiseY, i] * heightExaggeration) - pointHeight) + Random.Range(-random, random);
+            float pointX = (gap + cameraMin.x) + Random.Range(-random, random);
+            float pointY = ((noiseMap[noiseY, i] * heightExaggeration) - pointHeight) + Random.Range(-random, random);
             
-            lineY = Mathf.Clamp(lineY, -minHeight, maxHeight); // Clamping the height.
+            pointY = Mathf.Clamp(pointY, -minHeight, maxHeight); // Clamping the height.
             
             // Assigning the generated coordinates to a list so that we can give it to the line renderer
-            points[i] = (new Vector3(lineX, lineY));
+            points[i] = (new Vector3(pointX, pointY));
             
             gap += pointGap; // Incrementing the gap for the next point.
         }
