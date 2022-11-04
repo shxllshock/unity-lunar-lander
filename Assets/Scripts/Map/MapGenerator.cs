@@ -62,7 +62,15 @@ public class MapGenerator : MonoBehaviour {
         pointY = Mathf.Clamp(pointY, -minHeight, maxHeight);
 
         lr.positionCount++;
-        lr.SetPosition(lr.positionCount-1, new Vector3(pointX, pointY));
+        var posCount = lr.positionCount;
+        lr.SetPosition(posCount-1, new Vector3(pointX, pointY));
+
+        Vector3[] newPoints = new Vector3[posCount];
+        for (int i = 0; i < posCount; i++) {
+            newPoints[i] = lr.GetPosition(i);
+        }
+        
+        GenerateLineEdgeCollider(newPoints);
     }
 
     public void ExtendMapLeft() {
@@ -85,6 +93,8 @@ public class MapGenerator : MonoBehaviour {
         Array.Copy(points, 0, newPoints, 1, points.Length);
         lr.positionCount = newPoints.Length;
         lr.SetPositions(newPoints);
+        
+        GenerateLineEdgeCollider(newPoints);
     }
     
     public void GenerateMap() {
@@ -118,7 +128,10 @@ public class MapGenerator : MonoBehaviour {
         lr.SetPositions(points);
         
         // Generating collider from line renderer
-        
+        GenerateLineEdgeCollider(points);
+    }
+
+    public void GenerateLineEdgeCollider(Vector3[] points) {
         // Getting the edge collider component from the map object
         EdgeCollider2D edgeCollider2D = mapObject.GetComponent<EdgeCollider2D>();
         if (edgeCollider2D == null) // If it does not exist then add it to the map object.

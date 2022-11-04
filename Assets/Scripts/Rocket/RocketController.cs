@@ -28,15 +28,21 @@ public class RocketController : MonoBehaviour {
         else {
             propellant.enabled = false;
         }
-        //
-        // if (rb.velocity.magnitude > maxSpeed) {
-        //     rb.AddRelativeForce(-rb.velocity.normalized * velocityPushbackForce * Time.deltaTime);
-        //     Debug.Log("!!! " + (-rb.velocity.normalized * velocityPushbackForce) + " !!!");
-        // }
 
-        float horizontal = Input.GetAxis("Horizontal");
-        transform.Rotate(new Vector3(0, 0, -horizontal * rotateSpeed * Time.deltaTime));
+        float horizontal = Input.GetAxisRaw("Horizontal");
         
-        Debug.Log("H: " + rb.velocity.x + " V: " + rb.velocity.y);
+        var eulerAngles = transform.eulerAngles;
+        // Thanks to Seth:
+        // https://stackoverflow.com/a/2321125
+        var zAngleFixed = (Mathf.Atan2(Mathf.Sin(eulerAngles.z * Mathf.PI/180.0f), Mathf.Cos(eulerAngles.z * Mathf.PI/180.0f)) * eulerAngles.z / Mathf.PI) + 45.0f;
+        if (zAngleFixed <= 90.0f && zAngleFixed >= -90.0f) {
+            transform.Rotate(new Vector3(0, 0, -horizontal * rotateSpeed * Time.deltaTime));
+        }
+        else {
+            if (zAngleFixed >= 90.0f)
+                transform.rotation = Quaternion.Euler(0, 0, 89.5f);
+            if (zAngleFixed <= -90.0f) 
+                transform.rotation = Quaternion.Euler(0, 0, -89.5f);
+        }
     }
 }

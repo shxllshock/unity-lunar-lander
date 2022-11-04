@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="79aea1bb-546a-43cd-a02b-14dcd2fbce73" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.unity-lunar-lander/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.unity-lunar-lander/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Editor/MapGeneratorEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/MapGeneratorEditor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Friction.physicsMaterial2D" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Friction.physicsMaterial2D" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Map Testing.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Map Testing.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Map/MapGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Map/MapGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Rocket/RocketController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Rocket/RocketController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +13,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Camera/CameraController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Rocket/RocketController.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -72,7 +72,7 @@
       <option name="presentableId" value="Default" />
       <updated>1667488691013</updated>
       <workItem from="1667488702809" duration="11516000" />
-      <workItem from="1667586507528" duration="3860000" />
+      <workItem from="1667586507528" duration="9673000" />
     </task>
     <servers />
   </component>
